@@ -24,6 +24,7 @@ class Settings:
     admin_token: str | None = None
     telegram_bot_token: str | None = None
     telegram_channel_id: str | None = None
+    allowed_origins: tuple[str, ...] = ()
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -49,6 +50,10 @@ class Settings:
         admin_token = os.getenv("ADMIN_TOKEN")
         telegram_bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
         telegram_channel_id = os.getenv("TELEGRAM_CHANNEL_ID")
+        allowed_origins_raw = os.getenv("ALLOWED_ORIGINS", "")
+        allowed_origins: tuple[str, ...] = tuple(
+            origin.strip() for origin in allowed_origins_raw.split(",") if origin.strip()
+        )
 
         if not supabase_url:
             raise RuntimeError("SUPABASE_URL is not set")
@@ -88,6 +93,7 @@ class Settings:
             admin_token=admin_token,
             telegram_bot_token=telegram_bot_token,
             telegram_channel_id=telegram_channel_id,
+            allowed_origins=allowed_origins,
         )
 
 
