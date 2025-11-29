@@ -72,10 +72,6 @@ function HelpForm({ onClose }) {
       setSubmitMessage('Name, phone number, and location are required.')
       return
     }
-    if (!images.length) {
-      setSubmitMessage('Please add at least one photo.')
-      return
-    }
     const locUrl = manualLocation || form.locationUrl
     if (!locUrl) {
       setSubmitMessage('Please provide a GPS link (Use map or paste a map URL).')
