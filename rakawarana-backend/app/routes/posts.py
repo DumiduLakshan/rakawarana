@@ -16,9 +16,9 @@ router = APIRouter(prefix="/posts", tags=["posts"])
 logger = logging.getLogger(__name__)
 
 
-@router.post("", summary="Create a rescue post with images")
+@router.post("", summary="Create a rescue post (images optional)")
 async def create_rescue_post(
-    images: list[UploadFile] = File(...),
+    images: list[UploadFile] | None = File(None),
     supabase_client=Depends(get_supabase),
     full_name: str = Form(...),
     phone_number: str = Form(...),

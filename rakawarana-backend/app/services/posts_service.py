@@ -29,13 +29,9 @@ logger = logging.getLogger(__name__)
 
 
 async def upload_images_to_spaces(
-    files: list[UploadFile], spaces_client, settings
+    files: list[UploadFile] | None, spaces_client, settings
 ) -> list[str]:
-    if not files:
-        raise InvalidDataException(
-            message="At least one image file is required",
-            details={"field": "images"},
-        )
+    files = files or []
 
     max_bytes = settings.digitalocean_max_file_size_mb * 1024 * 1024
     cdn_urls: list[str] = []
@@ -98,7 +94,7 @@ async def upload_images_to_spaces(
 
 async def create_rescue_post_with_images(
     payload: dict[str, Any],
-    files: list[UploadFile],
+    files: list[UploadFile] | None,
     supabase_client,
     spaces_client,
 ) -> dict[str, Any]:
