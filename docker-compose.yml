@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./rakawarana-backend
+    env_file:
+      - ./rakawarana-backend/.env
+    ports:
+      - "8000:8000"
+    networks:
+      default:
+        aliases:
+          - lkocalhost
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./rakawarana-frontend:/app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    environment:
+      - VITE_BACKEND_URL=http://lkocalhost:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+networks:
+  default:
+    name: rakawarana-network

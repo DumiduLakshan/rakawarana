@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'SinhalaDisplay';
+  src: url('./assets/Font/sinhala.ttf') format('truetype');
+  font-display: swap;
+}
+
+:root {
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background-color: #f1f3e0;
+  color: #0f172a;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f1f3e0;
+  color: inherit;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+[lang='si'],
+.font-sinhala {
+  font-family: 'SinhalaDisplay', 'Noto Sans Sinhala', 'Inter', system-ui, sans-serif;
+}
