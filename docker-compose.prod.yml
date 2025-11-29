@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./rakawarana-backend
+    env_file:
+      - ./rakawarana-backend/.env
+    networks: [app]
+
+  frontend:
+    build:
+      context: ./rakawarana-frontend
+    networks: [app]
+
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile.caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
+    depends_on:
+      - backend
+      - frontend
+    networks: [app]
+
+networks:
+  app:
+
+volumes:
+  caddy_data:
+  caddy_config:

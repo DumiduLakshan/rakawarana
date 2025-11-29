@@ -1,0 +1,14 @@
+{
+    email nativelkvpn@gmail.com
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+}
+
+rakawarana.yakateam.com {
+    encode gzip
+
+    @api path /api/*
+    reverse_proxy @api backend:8000
+
+    # All other traffic goes to the static frontend
+    reverse_proxy frontend:80
+}
